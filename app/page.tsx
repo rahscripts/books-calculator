@@ -23,8 +23,8 @@ export default function Home() {
           <option value="7">7</option>
           <option value="10">10</option>
           <option value="15">15</option>
-        </select> pages everyday. <br />
-        By the end of the year <span className="text-1xl text-green-700 font-black">i will read {books} books</span>.
+        </select> <span className="font-bold">pages</span> everyday. <br />
+        By the end of the year <span className="text-1xl text-green-700 font-black">i will read <span className="text-2xl text-red-700 underline ">{books} books</span></span>.
       </div>
       <div></div>
     </section>
