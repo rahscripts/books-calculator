@@ -1,16 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Books Calculator by mr",
@@ -19,16 +8,31 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased tracking-tight`}
-      >
-        {children}
+      <body className="antialiased tracking-tight">
+        <div className="min-h-screen w-full bg-white relative overflow-hidden">
+          {/* Background */}
+          <div
+            className="absolute inset-0 z-0"
+            style={{
+              backgroundImage: `
+          radial-gradient(circle 600px at 0% 200px, #a7f3d0, transparent),
+          radial-gradient(circle 600px at 100% 200px, #a7f3d0, transparent)
+        `,
+            }}
+          />
+
+          {/* Centered content */}
+          <div className="relative z-10 flex items-center justify-center">
+            {children}
+          </div>
+        </div>
       </body>
+
     </html>
   );
 }
