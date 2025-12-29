@@ -102,8 +102,8 @@ export default function Footer() {
                             direction="left"
                         />
 
-                        <span className=" bg-black text-white px-1 rounded font-bold -ml-2">
-                            {X_FOLLOWERS} fellows!
+                        <span className=" px-1 rounded font-bold -ml-2">
+                            👋🏻 🦜
                         </span>
                     </Link>
                 </div>
