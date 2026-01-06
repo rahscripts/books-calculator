@@ -14,23 +14,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased tracking-tight">
-        <div className="min-h-screen w-full bg-white relative overflow-hidden">
-          {/* Background */}
-          <div
-            className="absolute inset-0 z-0"
-            style={{
-              backgroundImage: `
-          radial-gradient(circle 600px at 0% 200px, #a7f3d0, transparent),
-          radial-gradient(circle 600px at 100% 200px, #a7f3d0, transparent)
-        `,
-            }}
-          />
-
-          {/* Centered content */}
-          <div className="relative z-10 flex items-center justify-center">
             {children}
-          </div>
-        </div>
+
       </body>
 
     </html>
