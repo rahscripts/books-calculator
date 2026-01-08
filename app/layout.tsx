@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: "Books Calculator by mr",
@@ -14,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased tracking-tight">
-            {children}
+            <Providers>{children}</Providers>
 
       </body>
 
