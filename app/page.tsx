@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from "react";
 import Footer from "./components/Footer";
+import ReadList from "./components/ReadList";
 
 
 export default function Home() {
@@ -44,6 +45,7 @@ export default function Home() {
            </div>
       </div>
       <div className="mt-30">
+        <ReadList />
         <Footer />
       </div>
     </section>

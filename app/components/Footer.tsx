@@ -57,7 +57,7 @@ export default function Footer() {
                             I built this Books Calculator because I was curious—
                         </span>
                         <br />
-                        <span className="text-2xl font-semibold">
+                        <span className="text-xl font-semibold">
                             how many books can I realistically read in a year?
                         </span>
                     </div>
