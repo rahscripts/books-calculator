@@ -18,8 +18,8 @@ const calculators = [
         link: "https://gym-calculator-theta.vercel.app/",
     },
     {
-        name: "Movies Calculator",
-        link: "https://movies-calculator.vercel.app/",
+        name: "Minimal To-do & Notes",
+        link: "https://todo-tracker-ten.vercel.app/",
     },
 ];
 
