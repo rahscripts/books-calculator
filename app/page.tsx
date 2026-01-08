@@ -34,7 +34,7 @@ export default async function Home() {
 
         {/* CTA */}
         <div className="pt-4">
-            <LoginButton />
+            
         </div>
 
         {/* Footer note */}
