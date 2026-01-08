@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import LoginButton from "./components/LoginButton";
 
 export default async function Home() {
   const session = await auth();
@@ -33,11 +34,7 @@ export default async function Home() {
 
         {/* CTA */}
         <div className="pt-4">
-          <Link href="/login">
-            <button className="btn btn-outline px-8">
-              Sign in to continue
-            </button>
-          </Link>
+            <LoginButton />
         </div>
 
         {/* Footer note */}
