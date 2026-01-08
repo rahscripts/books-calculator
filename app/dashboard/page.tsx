@@ -16,11 +16,11 @@ export default async function DashboardPage() {
 
   return (
     <section className="max-w-2xl mx-auto p-20 min-h-screen text-center space-y-8">
+        <div> hey <span className="bg-red-100 text-neutral-900 p-1 font-semibold tracking-wider">{(session?.user?.name)?.split(" ")[1]}</span>👋🏻📚</div>
       <Header />
       <ReadCalculator />
 
       <div className="mt-10">
-        <LoginButton />
         <ReadList />
         <Footer />
       </div>
