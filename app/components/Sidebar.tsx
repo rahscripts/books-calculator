@@ -19,7 +19,7 @@ const Sidebar = () => {
     return (
         <aside className="lg:fixed left-0 top-0 h-full w-64 bg-white md:border-r max-md:items-center max-md:justify-center border-slate-200  md:flex flex-col z-50">
             <div className="p-8 pb-4">
-                <h1 className="text-xl font-bold tracking-tight">biblio</h1>
+                <h1 className="text-xl font-bold tracking-tight">biblion</h1>
             </div>
 
             <nav className="flex-1 max-md:flex px-4 space-y-1">

@@ -1,6 +1,12 @@
+"use client";
+
 import { Coffee, Heart, Star } from "lucide-react";
+import Link from "next/link";
 
 export default function SupportPage() {
+
+
+
     return (
         <div className="max-w-2xl mx-auto pt-8 pb-20">
 
@@ -13,7 +19,7 @@ export default function SupportPage() {
                     Keep the Tracker Alive.
                 </h1>
                 <p className="text-slate-500 text-lg max-w-md mx-auto leading-relaxed">
-                    biblio is free and open. If it helps you read more, consider fueling my next coding session.
+                    biblion is free and open. If it helps you read more, consider fueling my next coding session.
                 </p>
             </div>
 
@@ -35,17 +41,18 @@ export default function SupportPage() {
                                 Small contribution, big impact. Helps cover server costs.
                             </p>
                         </div>
-                        <a
-                            href="#"
-                            className="inline-flex items-center justify-center gap-2 w-full py-4 bg-white text-yellow-900 cursor-pointer font-bold rounded-xl shadow-sm hover:bg-yellow-50 transition-colors"
+                        <Link
+                        target="_blank"
+                            href="https://buymeacoffee.com/rahscripts"
+                            className="inline-flex items-center justify-center gap-2 w-full py-4 bg-white text-yellow-900 cursor-pointer font-semibold rounded-xl shadow-sm hover:bg-yellow-50 transition-colors"
                         >
                             Buy me a Coffee
-                        </a>
+                        </Link>
                     </div>
                 </div>
 
                 {/* Share Card */}
-                <div className="bg-white border border-slate-100 p-8 rounded-3xl relative overflow-hidden group hover:border-slate-200 transition-colors shadow-sm">
+                <div className="bg-red-100 border border-slate-200 p-8 rounded-3xl relative overflow-hidden group hover:border-slate-200 transition-colors shadow-sm">
                     <div className="relative z-10 h-full flex flex-col justify-between space-y-6">
                         <div>
                             <div className="w-12 h-12 bg-red-50 rounded-2xl flex items-center justify-center mb-4">
@@ -57,9 +64,10 @@ export default function SupportPage() {
                             </p>
                         </div>
                         <button
-                            className="inline-flex items-center justify-center gap-2 w-full py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-colors"
+                    
+                            className="inline-flex cursor-pointer items-center justify-center gap-2 w-full py-4 bg-neutral-900 text-white font-semibold rounded-xl hover:bg-neutral-800 transition-colors"
                         >
-                            Share on X
+                            Share 
                         </button>
                     </div>
                 </div>
