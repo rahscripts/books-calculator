@@ -13,8 +13,11 @@ export async function GET(req: Request) {
     }
 
     const apiKey = process.env.BOOK_API;
-
-    const url = `https://www.googleapis.com/books/v1/volumes?q=intitle:${title}&maxResults=4&printType=books&langRestrict=en&key=${apiKey}`;
+    
+    // Construct URL carefully. If no API key is present, it might still work 
+    // for public data but with lower rate limits.
+    const keyParam = apiKey ? `&key=${apiKey}` : "";
+    const url = `https://www.googleapis.com/books/v1/volumes?q=intitle:${encodeURIComponent(title)}&maxResults=5&printType=books&langRestrict=en${keyParam}`;
 
     const res = await fetch(url);
 
@@ -31,7 +34,8 @@ export async function GET(req: Request) {
       { items: data.items || [] },
       { status: 200 }
     );
-  } catch {
+  } catch (error) {
+    console.error("API Error:", error);
     return NextResponse.json(
       { error: "Server error" },
       { status: 500 }
