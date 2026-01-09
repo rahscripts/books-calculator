@@ -1,7 +1,6 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import LoginButton from "./components/LoginButton";
 
 export default async function Home() {
   const session = await auth();
@@ -12,34 +11,36 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen flex items-center justify-center px-6">
-      <div className="max-w-xl w-full text-center space-y-6">
-        
+      <div className="max-w-xl w-full text-center space-y-8">
+
         {/* Tagline */}
-        <p className="text-sm uppercase tracking-widest text-gray-500">
-          Building in public
+        <p className="text-xs font-medium uppercase tracking-[0.2em] text-gray-500">
+          Your Personal Reading Tracker
         </p>
 
         {/* Headline */}
-        <h1 className="text-4xl font-semibold leading-tight">
-          Track what you read. <br />
-          Share your progress.
+        <h1 className="text-5xl md:text-6xl font-bold tracking-tighter leading-[1.1] text-balance">
+          Get your username & showcase your readings.
         </h1>
 
         {/* Description */}
-        <p className="text-gray-500 text-base leading-relaxed">
-          A simple reading tracker that automatically fetches book data,
-          tracks your page progress, and gives you a public link
-          to share your reading journey.
+        <p className="text-gray-500 text-lg leading-relaxed max-w-md mx-auto">
+          Claim your private link to track your progress and share your library with the world.
         </p>
 
         {/* CTA */}
-        <div className="pt-4">
-            <LoginButton />
+        <div className="pt-6">
+          <Link
+            href="/login"
+            className="btn btn-neutral px-8 h-12 min-h-0 rounded-full text-base font-medium tracking-wide"
+          >
+            Get Started
+          </Link>
         </div>
 
         {/* Footer note */}
-        <p className="text-xs text-gray-400 pt-6">
-          No ads. No noise. Just reading.
+        <p className="text-[10px] uppercase tracking-widest text-gray-300 pt-12">
+          Simple • Private • Free
         </p>
 
       </div>

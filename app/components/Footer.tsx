@@ -6,7 +6,7 @@ import SquigglyArrow from "./squiggle-arrow";
 
 const PROFILE_LINK = "https://www.rahscripts.online/";
 const X_LINK = "https://x.com/rahscripts";
-const X_FOLLOWERS = 5;
+
 
 const calculators = [
     {

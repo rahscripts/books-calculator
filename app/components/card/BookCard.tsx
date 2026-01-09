@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type Book = {
   id: string;        // Unique local ID
   googleId: string;  // API ID to check duplicates
@@ -15,16 +17,16 @@ const Icons = {
 };
 
 
-function BookCard({ book, onUpdate, onDelete }: { book: Book, onUpdate: any, onDelete: any }) {
+function BookCard({ book, onUpdate, onDelete }: { book: Book, onUpdate: (id: string, page: number) => void, onDelete: (id: string) => void }) {
   const progress = Math.round((book.currentPage / book.pageCount) * 100);
   const isFinished = progress === 100;
 
   return (
     <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow flex flex-col w-fit gap-4">
       {/* Cover Image */}
-      <div className="w-20 h-28 flex-shrink-0 bg-slate-100 rounded-lg overflow-hidden shadow-inner">
+      <div className="relative w-20 h-28 flex-shrink-0 bg-slate-100 rounded-lg overflow-hidden shadow-inner">
         {book.cover ? (
-          <img src={book.cover} alt={book.title} className="w-full h-full object-cover" />
+          <img src={book.cover} alt={book.title} className="object-cover" />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-xs text-slate-400">No Cover</div>
         )}
@@ -37,8 +39,8 @@ function BookCard({ book, onUpdate, onDelete }: { book: Book, onUpdate: any, onD
             <h3 className="font-bold text-slate-900 leading-tight line-clamp-2" title={book.title}>
               {book.title}
             </h3>
-            <button 
-              onClick={() => onDelete(book.id)} 
+            <button
+              onClick={() => onDelete(book.id)}
               className="text-slate-300 hover:text-red-500 transition-colors"
             >
               <Icons.Trash />
@@ -57,9 +59,9 @@ function BookCard({ book, onUpdate, onDelete }: { book: Book, onUpdate: any, onD
               {book.currentPage} / {book.pageCount}
             </span>
           </div>
-          
+
           <div className="w-full bg-slate-100 rounded-full h-1.5 mb-3 overflow-hidden">
-            <div 
+            <div
               className={`h-full rounded-full transition-all duration-300 ${isFinished ? "bg-emerald-500" : "bg-blue-500"}`}
               style={{ width: `${progress}%` }}
             />

@@ -1,12 +1,6 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-
-import Header from "@/app/components/Header";
-import Footer from "@/app/components/Footer";
-import ReadCalculator from "@/app/components/ReadCalculator";
 import ReadList from "@/app/components/ReadList";
-import UserAccount from "../components/UserAccount";
-import LoginButton from "@/app/components/LoginButton";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -16,11 +10,12 @@ export default async function DashboardPage() {
   }
 
   return (
-    <section className="max-w-2xl mx-auto p-20 min-h-screen text-center space-y-8">
-      <UserAccount session={session}/>
-        <ReadList />
-        <Footer />
-
-    </section>
+    <>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+        <p className="text-gray-500">Track your reading progress.</p>
+      </div>
+      <ReadList />
+    </>
   );
 }

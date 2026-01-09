@@ -3,17 +3,8 @@
 import { useEffect, useState, useMemo } from "react";
 import StatCard from "./card/StatCard";
 import BookCard from "./card/BookCard";
-
-/* --- TYPES --- */
-type Book = {
-  id: string;        // Unique local ID
-  googleId: string;  // API ID to check duplicates
-  title: string;
-  authors: string[];
-  cover: string;
-  pageCount: number;
-  currentPage: number;
-};
+import { syncBooks, Book } from "@/app/actions";
+import Image from "next/image";
 
 /* --- ICONS (SVG) for Zero Dependencies --- */
 const Icons = {
@@ -22,10 +13,26 @@ const Icons = {
   BookOpen: () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>,
 };
 
+// Types for Google Books API response
+interface GoogleBookVolumeInfo {
+  title?: string;
+  authors?: string[];
+  imageLinks?: {
+    thumbnail?: string;
+    smallThumbnail?: string;
+  };
+  pageCount?: number;
+}
+
+interface GoogleBookItem {
+  id: string;
+  volumeInfo: GoogleBookVolumeInfo;
+}
+
 export default function ReadList() {
   // State
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<GoogleBookItem[]>([]);
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -47,6 +54,7 @@ export default function ReadList() {
   useEffect(() => {
     if (mounted) {
       localStorage.setItem("my-books", JSON.stringify(books));
+      syncBooks(books).catch(console.error);
     }
   }, [books, mounted]);
 
@@ -56,29 +64,29 @@ export default function ReadList() {
       setResults([]);
       return;
     }
+
+    const fetchBooks = async () => {
+      setLoading(true);
+      try {
+        // Use built-in fetch
+        const res = await fetch(`/api/book?intitle=${encodeURIComponent(query)}`);
+        if (!res.ok) throw new Error("Failed to fetch");
+        const data = await res.json();
+        setResults(data.items || []);
+      } catch (err) {
+        console.error(err);
+        setResults([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     const timer = setTimeout(() => fetchBooks(), 500);
     return () => clearTimeout(timer);
   }, [query]);
 
   /* --- API & ACTIONS --- */
-
-  const fetchBooks = async () => {
-    setLoading(true);
-    try {
-      // Use built-in fetch
-      const res = await fetch(`/api/book?intitle=${encodeURIComponent(query)}`);
-      if (!res.ok) throw new Error("Failed to fetch");
-      const data = await res.json();
-      setResults(data.items || []);
-    } catch (err) {
-      console.error(err);
-      setResults([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const addBook = (apiBook: any) => {
+  const addBook = (apiBook: GoogleBookItem) => {
     // Prevent adding same book twice
     if (books.some(b => b.googleId === apiBook.id)) {
       setQuery("");
@@ -92,7 +100,7 @@ export default function ReadList() {
       googleId: apiBook.id,
       title: info.title || "Untitled",
       authors: info.authors || ["Unknown"],
-      cover: info.imageLinks?.thumbnail || "", 
+      cover: info.imageLinks?.thumbnail || "",
       pageCount: info.pageCount || 100, // Default to avoid 0 division
       currentPage: 0,
     };
@@ -112,7 +120,7 @@ export default function ReadList() {
   };
 
   const deleteBook = (id: string) => {
-    if(confirm("Remove this book from your list?")) {
+    if (confirm("Remove this book from your list?")) {
       setBooks(prev => prev.filter(b => b.id !== id));
     }
   };
@@ -124,7 +132,7 @@ export default function ReadList() {
     const totalRead = books.reduce((sum, b) => sum + b.currentPage, 0);
     const percent = totalPages === 0 ? 0 : Math.round((totalRead / totalPages) * 100);
     const completedBooks = books.filter(b => b.currentPage === b.pageCount).length;
-    
+
     return { totalBooks, totalPages, totalRead, percent, completedBooks };
   }, [books]);
 
@@ -132,7 +140,7 @@ export default function ReadList() {
 
   return (
     <div className="max-w-7xl mx-auto p-4 md:p-8 space-y-8 font-sans text-slate-800">
-      
+
       {/* 1. CALCULATIVE DASHBOARD */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatCard label="Books Reading" value={stats.totalBooks} color="blue" />
@@ -176,11 +184,18 @@ export default function ReadList() {
                 onClick={() => addBook(item)}
                 className="w-full flex items-center gap-4 p-3 hover:bg-slate-50 text-left transition-colors border-b border-slate-50 last:border-0"
               >
-                <img 
-                  src={item.volumeInfo.imageLinks?.smallThumbnail || "https://via.placeholder.com/40x60"} 
-                  className="w-10 h-14 object-cover rounded bg-slate-200" 
-                  alt="" 
-                />
+                <div className="relative w-10 h-14 bg-slate-200 rounded overflow-hidden shrink-0">
+                  {item.volumeInfo.imageLinks?.smallThumbnail ? (
+                    <Image
+                      src={item.volumeInfo.imageLinks.smallThumbnail}
+                      alt={item.volumeInfo.title || "Book cover"}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-[8px] text-slate-400">No Image</div>
+                  )}
+                </div>
                 <div>
                   <div className="font-semibold text-sm text-slate-900 line-clamp-1">{item.volumeInfo.title}</div>
                   <div className="text-xs text-slate-500">{item.volumeInfo.authors?.[0]}</div>
@@ -196,7 +211,7 @@ export default function ReadList() {
         <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
           <Icons.BookOpen /> Your Library
         </h2>
-        
+
         {books.length === 0 ? (
           <div className="text-center py-12 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 text-slate-400">
             Start by searching for a book above.
@@ -204,11 +219,11 @@ export default function ReadList() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
             {books.map((book) => (
-              <BookCard 
-                key={book.id} 
-                book={book} 
-                onUpdate={updateProgress} 
-                onDelete={deleteBook} 
+              <BookCard
+                key={book.id}
+                book={book}
+                onUpdate={updateProgress}
+                onDelete={deleteBook}
               />
             ))}
           </div>
@@ -218,7 +233,6 @@ export default function ReadList() {
     </div>
   );
 }
-
 /* --- SUB-COMPONENTS for cleaner code --- */
 
 
