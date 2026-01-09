@@ -1,5 +1,4 @@
 import { getPublicProfile } from "@/app/actions";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 

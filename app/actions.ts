@@ -17,7 +17,7 @@ export type Book = {
     currentPage: number;
 };
 
-export async function updateUsername(username: string) {
+export async function updateProfile(data: { username?: string; name?: string; image?: string }) {
     const session = await auth();
     if (!session?.user?.email) {
         throw new Error("Not authenticated");
@@ -26,20 +26,27 @@ export async function updateUsername(username: string) {
     const client = await clientPromise;
     const db = client.db();
 
-    // Check uniqueness (exclude current user)
-    const existing = await db.collection("users").findOne({
-        username: username,
-        email: { $ne: session.user.email }
-    });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const updateDoc: any = {};
 
-    if (existing) {
-        return { error: "Username already taken" };
+    // Username check
+    if (data.username) {
+        const existing = await db.collection("users").findOne({
+            username: data.username,
+            email: { $ne: session.user.email }
+        });
+        if (existing) return { error: "Username already taken" };
+        updateDoc.username = data.username;
     }
 
-    // Update user
+    if (data.name) updateDoc.name = data.name;
+    if (data.image) updateDoc.image = data.image;
+
+    if (Object.keys(updateDoc).length === 0) return { success: true };
+
     await db.collection("users").updateOne(
         { email: session.user.email },
-        { $set: { username: username } }
+        { $set: updateDoc }
     );
 
     return { success: true };
@@ -100,5 +107,10 @@ export async function getUserSettings() {
 
     // Explicitly fetching the user to get the username and books to hydrate client
     const user = await db.collection("users").findOne({ email: session.user.email });
-    return user ? { username: user.username, books: user.books } : null;
+    return user ? {
+        username: user.username,
+        books: user.books,
+        name: user.name || session.user.name,
+        image: user.image || session.user.image
+    } : null;
 }
