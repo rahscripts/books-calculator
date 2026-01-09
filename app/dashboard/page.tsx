@@ -18,13 +18,9 @@ export default async function DashboardPage() {
   return (
     <section className="max-w-2xl mx-auto p-20 min-h-screen text-center space-y-8">
       <UserAccount session={session}/>
-      <Header />
-      <ReadCalculator />
-
-      <div className="mt-10">
         <ReadList />
         <Footer />
-      </div>
+
     </section>
   );
 }

@@ -19,4 +19,4 @@ const UserAccount = ({ session }: Sprops) => {
     )
 }
 
-export default UserAccount
+export default UserAccount;
