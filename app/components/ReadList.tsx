@@ -167,12 +167,14 @@ export default function ReadList() {
           </div>
           <input
             type="text"
-            className="w-full pl-12 pr-4 py-4 bg-white border border-slate-200 rounded-xl shadow-sm focus:ring-4 focus:ring-blue-50 focus:border-blue-500 outline-none transition-all text-lg placeholder:text-slate-400"
+            className="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl shadow-sm focus:ring-4 focus:ring-blue-50 focus:border-blue-500 outline-none transition-all text-lg placeholder:text-slate-400"
             placeholder="Search for a book..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          {loading && <div className="absolute right-4 top-4 text-xs text-slate-400">Loading...</div>}
+          {loading && <div className="absolute right-4 top-4 text-xs text-slate-400">
+            <span className="loading loading-spinner loading-sm"></span>
+            </div>}
         </div>
 
         {/* Search Results Dropdown */}
@@ -233,7 +235,6 @@ export default function ReadList() {
     </div>
   );
 }
-/* --- SUB-COMPONENTS for cleaner code --- */
 
 
 

@@ -13,14 +13,14 @@ export default function SupportPage() {
                     Keep the Tracker Alive.
                 </h1>
                 <p className="text-slate-500 text-lg max-w-md mx-auto leading-relaxed">
-                    Books Calculator is free and open. If it helps you read more, consider fueling my next coding session.
+                    biblio is free and open. If it helps you read more, consider fueling my next coding session.
                 </p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
 
                 {/* Coffee Card */}
-                <div className="bg-[#FFDD00] p-8 rounded-3xl relative overflow-hidden group hover:scale-[1.02] transition-transform cursor-pointer shadow-xl shadow-yellow-100">
+                <div className="bg-[#FFDD00] p-8 rounded-3xl relative overflow-hidden group transition-transform  shadow-xl shadow-yellow-100">
                     <div className="absolute top-0 right-0 -m-8 opacity-10 group-hover:opacity-20 transition-opacity">
                         <Coffee className="w-48 h-48" />
                     </div>
@@ -37,9 +37,9 @@ export default function SupportPage() {
                         </div>
                         <a
                             href="#"
-                            className="inline-flex items-center justify-center gap-2 w-full py-4 bg-white text-yellow-900 font-bold rounded-xl shadow-sm hover:bg-yellow-50 transition-colors"
+                            className="inline-flex items-center justify-center gap-2 w-full py-4 bg-white text-yellow-900 cursor-pointer font-bold rounded-xl shadow-sm hover:bg-yellow-50 transition-colors"
                         >
-                            Support $5
+                            Buy me a Coffee
                         </a>
                     </div>
                 </div>

@@ -10,7 +10,7 @@ export default async function LoginPage() {
     }
 
     return (
-        <main className="min-h-screen flex items-center justify-center px-6">
+        <main className="min-h-screen flex items-center justify-center px-6 pt-24">
             <div className="max-w-md w-full text-center space-y-8">
                 <div className="space-y-4">
                     <h1 className="text-3xl font-bold tracking-tighter">Welcome Back</h1>

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
+import UserAccount from "./UserAccount";
 
 import { LayoutDashboard, Settings, Coffee, LogOut } from "lucide-react";
 
@@ -11,17 +12,17 @@ const Sidebar = () => {
 
     const links = [
         { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-        { name: "Settings", href: "/dashboard/settings", icon: Settings },
         { name: "Support", href: "/dashboard/support", icon: Coffee },
+         { name: "Settings", href: "/dashboard/settings", icon: Settings },
     ];
 
     return (
-        <aside className="fixed left-0 top-0 h-full w-64 bg-white border-r border-slate-200 hidden md:flex flex-col z-50">
+        <aside className="lg:fixed left-0 top-0 h-full w-64 bg-white md:border-r max-md:items-center max-md:justify-center border-slate-200  md:flex flex-col z-50">
             <div className="p-8 pb-4">
-                <h1 className="text-xl font-bold tracking-tight">Books Calc</h1>
+                <h1 className="text-xl font-bold tracking-tight">biblio</h1>
             </div>
 
-            <nav className="flex-1 px-4 space-y-1">
+            <nav className="flex-1 max-md:flex px-4 space-y-1">
                 {links.map((link) => {
                     const isActive = pathname === link.href;
                     const Icon = link.icon;
@@ -42,11 +43,13 @@ const Sidebar = () => {
             </nav>
 
             <div className="p-4 border-t border-slate-100">
+               
                 <button
                     onClick={() => signOut()}
-                    className="flex items-center gap-3 w-full px-4 py-3 text-slate-500 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all text-sm font-medium"
+                    className="flex cursor-pointer items-center gap-3 w-full px-4 py-3 text-slate-500 hover:text-red-500 max-md:hidden hover:bg-red-50 rounded-xl transition-all text-sm font-medium"
                 >
                     <LogOut className="w-5 h-5" />
+                    
                     Sign Out
                 </button>
             </div>
