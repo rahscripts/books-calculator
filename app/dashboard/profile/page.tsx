@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { updateProfile, getUserSettings } from "@/app/actions";
-import { User, Link as LinkIcon, Image as ImageIcon } from "lucide-react";
+import { updateProfile, getUserSettings, checkUsernameAvailability } from "@/app/actions";
+import { User, Link as LinkIcon, Image as ImageIcon, Check, Ban } from "lucide-react";
 import Image from "next/image";
 
 export default function SettingsPage() {
@@ -11,28 +11,63 @@ export default function SettingsPage() {
         name: "",
         image: ""
     });
+    const [initialUsername, setInitialUsername] = useState("");
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [msg, setMsg] = useState("");
 
+    // Username validation state
+    const [usernameStatus, setUsernameStatus] = useState<'idle' | 'checking' | 'available' | 'taken'>('idle');
+
     useEffect(() => {
         getUserSettings().then((data) => {
             if (data) {
-                setFormData({
+                const initial = {
                     username: data.username || "",
                     name: data.name || "",
                     image: data.image || ""
-                });
+                };
+                setFormData(initial);
+                setInitialUsername(initial.username);
             }
             setLoading(false);
         });
     }, []);
 
+    // Real-time username check
+    useEffect(() => {
+        const check = async () => {
+            const username = formData.username.trim().toLowerCase().replace(/[^a-z0-9_]/g, "");
+
+            // Don't check if empty or same as initial
+            if (!username || username === initialUsername) {
+                setUsernameStatus('idle');
+                return;
+            }
+
+            setUsernameStatus('checking');
+
+            // Debounce manually or just direct for simplicity in this robust environment? 
+            // We'll use a small timeout to avoid spamming
+            const timeoutId = setTimeout(async () => {
+                const res = await checkUsernameAvailability(username);
+                setUsernameStatus(res.available ? 'available' : 'taken');
+            }, 500);
+
+            return () => clearTimeout(timeoutId);
+        };
+
+        check();
+    }, [formData.username, initialUsername]);
+
+
     const handleSave = async () => {
+        if (usernameStatus === 'taken') return;
+
         setSaving(true);
         setMsg("");
 
-        const cleanUsername = formData.username.trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+        const cleanUsername = formData.username.trim().toLowerCase().replace(/[^a-z0-9_]/g, "");
 
         const res = await updateProfile({
             username: cleanUsername,
@@ -41,10 +76,11 @@ export default function SettingsPage() {
         });
 
         if (res.error) {
-            setMsg("❌ " + res.error);
+            setMsg(res.error);
         } else {
             setMsg("✅ Profile updated!");
             setFormData(prev => ({ ...prev, username: cleanUsername }));
+            setInitialUsername(cleanUsername);
         }
         setSaving(false);
     };
@@ -81,16 +117,32 @@ export default function SettingsPage() {
                     <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
                         <LinkIcon className="w-4 h-4" /> Username
                     </label>
-                    <div className="flex gap-2">
+                    <div className="relative">
                         <input
                             type="text"
                             value={formData.username}
                             onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                             placeholder="username"
-                            className="flex-1 p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-slate-900 transition-all text-sm font-medium placeholder:text-slate-400"
+                            className={`w-full p-4 bg-slate-50 border rounded-2xl outline-none focus:ring-2 transition-all text-sm font-medium placeholder:text-slate-400
+                                ${usernameStatus === 'taken' ? 'border-red-300 focus:ring-red-100' : 'border-slate-200 focus:ring-slate-900'}
+                            `}
                         />
+                        {/* Status Icon */}
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2">
+                            {usernameStatus === 'checking' && <span className="w-4 h-4 border-2 border-slate-200 border-t-slate-500 rounded-full animate-spin block"></span>}
+                            {usernameStatus === 'available' && <Check className="w-4 h-4 text-emerald-500" />}
+                            {usernameStatus === 'taken' && <Ban className="w-4 h-4 text-red-500" />}
+                        </div>
                     </div>
-                    <p className="text-[10px] text-slate-400 pl-1">Only lowercase letters and numbers.</p>
+
+                    {/* Error Message */}
+                    {usernameStatus === 'taken' ? (
+                        <p className="text-xs font-bold text-red-500 pl-1 animate-pulse">
+                            Username already exists.
+                        </p>
+                    ) : (
+                        <p className="text-[10px] text-slate-400 pl-1">Only lowercase letters and numbers.</p>
+                    )}
                 </div>
 
                 {/* Profile Image URL */}
@@ -121,12 +173,12 @@ export default function SettingsPage() {
 
 
                 <div className="pt-4 border-t border-slate-50 flex items-center justify-between">
-                    {msg ? <p className="text-sm font-bold text-slate-900 animate-pulse">{msg}</p> : <div></div>}
+                    {msg ? <p className={`text-sm font-bold animate-pulse ${msg.includes("✅") ? "text-emerald-600" : "text-red-500"}`}>{msg}</p> : <div></div>}
 
                     <button
                         onClick={handleSave}
-                        disabled={saving}
-                        className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold text-sm hover:bg-slate-800 disabled:opacity-50 transition-all shadow-lg hover:shadow-xl active:scale-95"
+                        disabled={saving || usernameStatus === 'taken'}
+                        className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold text-sm hover:bg-slate-800 disabled:opacity-50 transition-all shadow-lg hover:shadow-xl active:scale-95 disabled:cursor-not-allowed"
                     >
                         {saving ? "Saving..." : "Save Changes"}
                     </button>
