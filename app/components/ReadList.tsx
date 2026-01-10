@@ -224,7 +224,7 @@ export default function ReadList() {
 
       {/* 3. SHARABLE LINK BANNER */}
       {username && (
-        <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-4 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4 shadow-lg">
+        <div className="bg-gradient-to-r from-green-900 to-green-800 text-white p-4 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4 shadow-lg">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-white/10 rounded-lg">
               <Icons.Share />

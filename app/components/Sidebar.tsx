@@ -29,7 +29,10 @@ const Sidebar = () => {
             <Link href={"/"}>
                 <div className="p-8 w-fit pb-4 max-md:p-0">
 
-                    <div className="text-xl font-bold tracking-tight">booksofme</div>
+                    <div className="flex items-center gap-2">
+                        <img src="/logo.png" alt="" className="w-5 h-5 object-contain" />
+                        <span className="text-xl font-bold tracking-tight">booksofme</span>
+                    </div>
 
                 </div>
             </Link>

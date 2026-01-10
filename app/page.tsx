@@ -48,7 +48,7 @@ export default function Home() {
         <span className="text-neutral-200">/</span>
         <a href="https://x.com/rahscripts" target="_blank" className="hover:text-black transition-colors">Twitter</a>
         <span className="text-neutral-200">/</span>
-        <a href="#" className="hover:text-black transition-colors">Terms</a>
+        <a href="/terms" className="hover:text-black transition-colors">Terms</a>
       </footer>
 
     </main>
