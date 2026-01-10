@@ -26,7 +26,7 @@ const Sidebar = () => {
     return (
         <aside className="md:fixed left-0 top-0 h-full w-64 bg-white border-r border-slate-200 flex flex-col z-50 
             max-md:w-full max-md:h-auto max-md:border-b max-md:flex-row max-md:items-center max-md:justify-between max-md:p-4 max-md:sticky max-md:top-0">
-            <Link href={"/"}>
+            <Link href={"/dashboard"}>
                 <div className="p-8 w-fit pb-4 max-md:p-0">
 
                     <div className="flex items-center gap-2">
