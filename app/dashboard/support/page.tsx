@@ -64,12 +64,13 @@ export default function SupportPage() {
                                 Can&apos;t donate? No worries! Sharing this tool with your friends implies the world to me.
                             </p>
                         </div>
-                        <button
-
-                            className="inline-flex cursor-pointer items-center justify-center gap-2 w-full py-4 bg-neutral-900 text-white font-semibold rounded-xl hover:bg-neutral-800 transition-colors"
-                        >
-                            Share
-                        </button>
+                        <Link href={"https://x.com/rahscripts"}>
+                            <button
+                                className="inline-flex cursor-pointer items-center justify-center gap-2 w-full py-4 bg-neutral-900 text-white font-semibold rounded-xl hover:bg-neutral-800 transition-colors"
+                            >
+                                Share
+                            </button>
+                        </Link>
                     </div>
                 </div>
 
