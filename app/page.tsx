@@ -2,8 +2,15 @@ import Link from "next/link";
 import { BookOpen, Share2, Search, Lock, BarChart3, ArrowRight } from "lucide-react";
 import UsernameClaim from "./components/landing/UsernameClaim";
 import Image from "next/image";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
+  if (session?.user) {
+    redirect("/dashboard");
+  }
+
   return (
     // changed h-screen to h-dvh for better mobile browser support
     <main className="h-dvh bg-white text-black selection:bg-black selection:text-white relative overflow-y-scroll snap-y snap-mandatory scroll-smooth font-sans">
