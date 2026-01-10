@@ -52,7 +52,7 @@ export default function UsernameClaim() {
                         'border-orange-200 focus-within:border-orange-400 focus-within:ring-4 focus-within:ring-orange-500/10'}
             `}>
                 <span className="text-black-900/40 font-medium font-mono text-lg md:text-xl shrink-0 select-none">
-                    booksofme.in/
+                    booksofme.com/
                 </span>
 
                 <input
