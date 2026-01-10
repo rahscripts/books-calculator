@@ -148,7 +148,7 @@ export default function ReadList() {
   if (!mounted) return null; // Wait for client load
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(`http://localhost:3000/${username}`);
+    navigator.clipboard.writeText(`https://booksofme.com/${username}`);
     toast.success("copied to clipboard");
   }
 
