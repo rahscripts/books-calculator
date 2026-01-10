@@ -9,7 +9,7 @@ export default function DashboardLayout({
         <div className="min-h-screen bg-white">
             <Sidebar />
             <div className="md:ml-64 transition-all duration-300">
-                <div className="p-8 max-w-5xl mx-auto">
+                <div className="p-4 md:p-8 max-w-5xl mx-auto">
                     {children}
                 </div>
             </div>

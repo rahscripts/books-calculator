@@ -1,4 +1,5 @@
 "use client";
+import Footer from "@/app/components/Footer";
 
 import { Coffee, Heart, Star } from "lucide-react";
 import Link from "next/link";
@@ -75,9 +76,11 @@ export default function SupportPage() {
             </div>
 
             <div className="mt-12 text-center">
+                
                 <p className="text-xs text-slate-400 font-medium">
                     Built by <a href="https://x.com/rahscripts" target="_blank" className="underline hover:text-slate-600">@rahscripts</a> with ❤️ and Next.js
                 </p>
+              
             </div>
 
         </div>
