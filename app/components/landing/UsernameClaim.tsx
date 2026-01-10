@@ -46,12 +46,12 @@ export default function UsernameClaim() {
         <div className="w-full max-w-[460px] space-y-3">
             {/* Input Container - Flex Row for perfect alignment */}
             <div className={`
-                flex items-center px-6 py-5 rounded-2xl bg-white/60 backdrop-blur-xl border transition-all duration-300 shadow-sm
+                flex items-center px-4 py-4 md:px-6 md:py-5 rounded-2xl bg-white/60 backdrop-blur-xl border transition-all duration-300 shadow-sm
                 ${status === 'available' ? 'border-emerald-500/50 ring-4 ring-emerald-500/10' :
                     status === 'taken' ? 'border-rose-500/50 ring-4 ring-rose-500/10' :
                         'border-orange-200 focus-within:border-orange-400 focus-within:ring-4 focus-within:ring-orange-500/10'}
             `}>
-                <span className="text-black-900/40 font-medium font-mono text-lg md:text-xl shrink-0 select-none">
+                <span className="text-black-900/40 font-medium font-mono text-xs sm:text-sm md:text-xl shrink-0 select-none">
                     booksofme.com/
                 </span>
 

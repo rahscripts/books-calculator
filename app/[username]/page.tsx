@@ -115,7 +115,7 @@ export default async function PublicPage({ params }: { params: { username: strin
                 </div>
 
                 <div className="text-center  pt-12">
-                    <Link href="/" className="text-sm flex justify-center items-center gap-2 text-slate-400 transition-colors">
+                    <Link href="/dashboard" className="text-sm flex justify-center items-center gap-2 text-slate-400 transition-colors">
                         <div>try</div>
                         <div className="flex items-center font-semibold  gap-1">
                             <div><img src="/logo.png " alt="" className="w-4 h-4 inline-block" /></div>
