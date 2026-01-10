@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import StatCard from "./card/StatCard";
 import BookCard from "./card/BookCard";
-import { syncBooks, Book } from "@/app/actions";
+import { syncBooks, Book, getUserSettings } from "@/app/actions";
 
 
 /* --- ICONS (SVG) for Zero Dependencies --- */
@@ -31,6 +31,7 @@ interface GoogleBookItem {
 
 export default function ReadList() {
   // State
+  const [username, setUsername] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<GoogleBookItem[]>([]);
   const [books, setBooks] = useState<Book[]>([]);
@@ -48,6 +49,11 @@ export default function ReadList() {
         console.error("Save file corrupted", e);
       }
     }
+
+    // Fetch username for public link
+    getUserSettings().then(settings => {
+      if (settings?.username) setUsername(settings.username);
+    });
   }, []);
 
   // 2. Save Data automatically
@@ -208,7 +214,30 @@ export default function ReadList() {
         )}
       </div>
 
-      {/* 3. RESPONSIVE GRID (Books) */}
+      {/* 3. SHARABLE LINK BANNER */}
+      {username && (
+        <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-4 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4 shadow-lg">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-white/10 rounded-lg">
+              <Icons.Share />
+            </div>
+            <div>
+              <div className="text-sm font-bold">Your Public Showcase is Live</div>
+              <div className="text-xs text-slate-300">Share your reading journey with the world.</div>
+            </div>
+          </div>
+          <a
+            href={`/u/${username}`}
+            target="_blank"
+            className="flex items-center gap-2 px-4 py-2 bg-white text-slate-900 text-xs font-bold rounded-lg hover:bg-slate-100 transition-colors"
+          >
+            Visit Profile
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+          </a>
+        </div>
+      )}
+
+      {/* 4. RESPONSIVE GRID (Books) */}
       <div>
         <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
           <Icons.BookOpen /> Your Library
@@ -219,7 +248,7 @@ export default function ReadList() {
             Start by searching for a book above.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 items-stretch">
             {books.map((book) => (
               <BookCard
                 key={book.id}

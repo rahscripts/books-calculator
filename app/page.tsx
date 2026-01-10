@@ -106,7 +106,7 @@ export default function Home() {
               {[
                 { title: "Instant Search", desc: "Google Books API. Zero friction.", icon: "⚡️" },
                 { title: "Pure Stats", desc: "Pages read, not likes earned.", icon: "📊" },
-                { title: "Private", desc: "Your data stays on your device.", icon: "🔒" },
+                { title: "Showcase", desc: "Share your readlist with anyone.", icon: "🔒" },
               ].map((f, i) => (
                 <div key={i} className="p-8 md:p-12 space-y-6 relative group hover:bg-white/[0.02] transition-colors">
                   {/* Squiggle Decoration */}
@@ -140,7 +140,7 @@ export default function Home() {
 
             {/* Review 1 */}
             <div className="group cursor-default border-b border-neutral-200 pb-16">
-              <p className="text-xl md:text-3xl lg:text-4xl font-medium tracking-tight leading-relaxed text-neutral-900 mb-8">
+              <p className="text-xl md:text-3xl lg:text-5xl font-medium tracking-tight leading-relaxed text-neutral-900 mb-8">
                 "I used to track my reading on Goodreads, but the clutter was overwhelming. <span className="text-neutral-400">Biblion is the antidote. It's clean, fast, and remarkably focused."</span>
               </p>
               <div className="flex items-center gap-4">
@@ -154,7 +154,7 @@ export default function Home() {
 
             {/* Review 2 */}
             <div className="group cursor-default border-b border-neutral-200 pb-16">
-              <p className="text-xl md:text-3xl lg:text-4xl font-medium tracking-tight leading-relaxed text-neutral-900 mb-8">
+              <p className="text-xl md:text-3xl lg:text-5xl font-medium tracking-tight leading-relaxed text-neutral-900 mb-8">
                 "The 'Pages Read' metric changed how I view my progress. <span className="text-neutral-400">It's a small detail, but the design makes me want to come back every day."</span>
               </p>
               <div className="flex items-center gap-4">
@@ -168,7 +168,7 @@ export default function Home() {
 
             {/* Review 3 */}
             <div className="group cursor-default">
-              <p className="text-xl md:text-3xl lg:text-4xl font-medium tracking-tight leading-relaxed text-neutral-900 mb-8">
+              <p className="text-xl md:text-3xl lg:text-5xl font-medium tracking-tight leading-relaxed text-neutral-900 mb-8">
                 "Finally, a reading app that respects my attention. <span className="text-neutral-400">No ads, no gamification, no social pressure. Just my books."</span>
               </p>
               <div className="flex items-center gap-4">
