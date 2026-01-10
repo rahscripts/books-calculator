@@ -119,7 +119,7 @@ export default async function PublicPage({ params }: { params: { username: strin
                         <div>try</div>
                         <div className="flex items-center font-semibold  gap-1">
                             <div><img src="/logo.png " alt="" className="w-4 h-4 inline-block" /></div>
-                            <div className="text-slate-400 hover:text-slate-900 underline decoration-offset-4 ">booksofme.</div>
+                            <div className="text-slate-400 hover:text-slate-900 underline decoration-offset-4 ">booksofme</div>
                             <div>and show-off your readings.</div>
                         </div>
 
