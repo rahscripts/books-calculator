@@ -10,7 +10,16 @@ export default function Home() {
 
       {/* Nav */}
       <nav className="w-full p-6 md:p-10 flex justify-between items-center z-50">
-        <span className="text-xl font-bold tracking-tight">booksofme</span>
+        <Link href={"/"}>
+          <div className="p-2 w-fit pb-4 max-md:p-0">
+
+            <div className="flex items-center gap-2">
+              <img src="/logo.png" alt="" className="w-5 h-5 object-contain" />
+              <span className="text-xl font-bold tracking-tight">booksofme</span>
+            </div>
+
+          </div>
+        </Link>
         <Link href="/login" className="text-sm font-medium text-neutral-500 hover:text-black transition-colors">
           Sign In
         </Link>
