@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BookOpen, Share2, Search, Lock, BarChart3, ArrowRight } from "lucide-react";
 import UsernameClaim from "./components/landing/UsernameClaim";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -69,43 +70,48 @@ export default function Home() {
       {/* -----------------------------------------------------------------
          Section 2: Mock UI Preview
          ------------------------------------------------------------------ */}
-      <section className="min-h-screen w-full flex items-center justify-center snap-center p-4 relative z-10">
+      <section className="min-h-screen w-full flex items-center justify-center snap-center p-4 relative z-10 overflow-hidden">
         <div className="w-full max-w-5xl mx-auto">
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl blur opacity-10 group-hover:opacity-20 transition duration-1000"></div>
             <div className="relative bg-white border border-neutral-200 rounded-xl shadow-2xl overflow-hidden">
+              {/* Browser Header */}
               <div className="h-8 border-b border-neutral-100 flex items-center px-4 gap-2 bg-neutral-50/50">
                 <div className="flex gap-1.5">
                   <div className="w-2.5 h-2.5 rounded-full bg-neutral-200"></div>
                   <div className="w-2.5 h-2.5 rounded-full bg-neutral-200"></div>
                 </div>
-                <div className="mx-auto text-[10px] text-neutral-400 font-mono">booksofme.com/johndoe</div>
+                <div className="mx-auto text-[10px] text-neutral-400 font-mono">booksofme.com/rahscripts</div>
               </div>
 
+              {/* Main Content */}
               <div className="p-8 md:p-12 flex flex-col md:flex-row gap-8 items-center md:items-start justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="h-16 w-16 rounded-full bg-neutral-100 flex items-center justify-center text-xl font-bold text-neutral-400">JD</div>
+                {/* User Profile */}
+                <div className="flex items-center gap-4 shrink-0">
+                  <Image src="/mainlogo.png" alt="profile" width={64} height={64} className="rounded-full" />
                   <div>
-                    <h3 className="font-bold text-lg">John Doe</h3>
-                    <p className="text-sm text-neutral-500">Reading 'Atomic Habits'</p>
+                    <h3 className="font-bold text-lg">Mr.</h3>
+                    <p className="text-sm text-neutral-500">Viewing Portfolio</p>
                   </div>
                 </div>
 
-                <div className="w-full max-w-xs space-y-2">
-                  <div className="flex justify-between text-xs font-medium text-neutral-500">
-                    <span>Current Progress</span>
-                    <span className="text-emerald-600">62%</span>
-                  </div>
-                  <div className="h-2 w-full bg-neutral-100 rounded-full overflow-hidden">
-                    <div className="h-full w-[62%] bg-neutral-800 rounded-full"></div>
-                  </div>
-                  <p className="text-[10px] text-neutral-400 text-right">Updated 2h ago</p>
+                {/* Iframe Embed (Replacing Progress) */}
+                <div className="w-300 max-w-lg h-164  bg-neutral-50 rounded-lg border border-neutral-100 overflow-hidden shadow-inner">
+                  <iframe
+                    src="https://booksofme.com/rahscripts"
+                    className="w-full h-full border-0"
+                    title="RahScripts Preview"
+                    loading="lazy"
+                  ></iframe>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* -----------------------------------------------------------------
+         Section 3: Workflow
 
       {/* -----------------------------------------------------------------
          Section 3: Workflow
