@@ -3,7 +3,10 @@
 import { useEffect, useState, useMemo } from "react";
 import StatCard from "./card/StatCard";
 import BookCard from "./card/BookCard";
+import Link from "next/link";
+import { Link as LinkIcon } from "lucide-react";
 import { syncBooks, Book, getUserSettings } from "@/app/actions";
+import toast from "react-hot-toast";
 
 
 /* --- ICONS (SVG) for Zero Dependencies --- */
@@ -144,6 +147,11 @@ export default function ReadList() {
 
   if (!mounted) return null; // Wait for client load
 
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(`http://localhost:3000/${username}`);
+    toast.success("copied to clipboard");
+  }
+
   return (
     <div className="space-y-8 font-sans text-slate-800">
 
@@ -226,14 +234,25 @@ export default function ReadList() {
               <div className="text-xs text-slate-300">Share your reading journey with the world.</div>
             </div>
           </div>
-          <a
-            href={`/u/${username}`}
-            target="_blank"
-            className="flex items-center gap-2 px-4 py-2 bg-white text-slate-900 text-xs font-bold rounded-lg hover:bg-slate-100 transition-colors"
-          >
-            Visit Profile
-            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-          </a>
+          <div className="flex gap-2">
+            <Link
+              href={`/${username}`}
+              target="_blank"
+              className="flex items-center gap-2 cursor-pointer p-2 px-3 bg-white text-slate-900 text-xs font-bold rounded-lg hover:bg-slate-100 transition-colors"
+            >
+              Visit Profile
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+            </Link>
+            <button
+              onClick={handleCopyLink}
+              className="flex items-center gap-2 p-2 cursor-pointer bg-white text-slate-900 text-xs font-bold rounded-lg hover:bg-slate-100 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+              </svg>
+
+            </button>
+          </div>
         </div>
       )}
 
