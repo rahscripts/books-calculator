@@ -6,7 +6,7 @@ import { ArrowRight, Star, Check } from "lucide-react";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-white selection:bg-white selection:text-black overflow-hidden relative">
+    <main className="min-h-screen bg-gray-900 text-white selection:bg-white selection:text-black overflow-hidden relative">
       {/* Noise Overlay */}
       <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-50 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] brightness-100 contrast-150 mix-blend-overlay"></div>
 

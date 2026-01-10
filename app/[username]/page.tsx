@@ -11,11 +11,36 @@ export default async function PublicPage({ params }: { params: { username: strin
     }
 
     // Calculate Stats
+    console.log(profile);
     const books = profile.books;
     const totalBooks = books.length;
+
+    const totalBooksCompleted = books.filter((b) => b.currentPage === b.pageCount).length;
+    const totalBooksReading = books.filter((b) => b.currentPage > 0 && b.currentPage < b.pageCount).length;
+    const totalBooksUnread = books.filter((b) => b.currentPage === 0).length;
+
     const totalPages = books.reduce((sum, b) => sum + b.pageCount, 0);
     const totalRead = books.reduce((sum, b) => sum + b.currentPage, 0);
     const percent = totalPages === 0 ? 0 : Math.round((totalRead / totalPages) * 100);
+
+    const userBooksData = [
+        {
+            label: "Books",
+            value: totalBooks,
+            color: "bg-base-300 border border-base-800"
+        },
+        {
+            label: "Completed",
+            value: totalBooksCompleted,
+            color: "bg-green-100 border border-green-500"
+        },
+        {
+            label: "Reading",
+            value: totalBooksReading,
+            color: "bg-orange-200 border border-orange-500"
+        },
+    ];
+
 
     return (
         <main className="min-h-screen bg-slate-50 p-8">
@@ -37,9 +62,12 @@ export default async function PublicPage({ params }: { params: { username: strin
                         <p className="text-slate-500">@{profile.username}</p>
                     </div>
                     <div className="flex justify-center gap-2">
-                        <span className="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-bold text-slate-600">
-                            {totalBooks} Books
-                        </span>
+                        {userBooksData.map((data, index) => (
+                            <span key={index} className={`px-3 py-1 ${data.color} rounded-full text-xs font-bold text-slate-600`}>
+                                {data.value} {data.label}
+                            </span>
+                        ))}
+
                         <span className="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-bold text-slate-600">
                             {STATS_EMOJI(percent)} {percent}% Complete
                         </span>
@@ -88,7 +116,7 @@ export default async function PublicPage({ params }: { params: { username: strin
 
                 <div className="text-center pt-12">
                     <Link href="/" className="text-sm text-slate-400 hover:text-slate-900 transition-colors">
-                        Made with biblion
+                        Made with <span className="font-semibold">biblion.</span>
                     </Link>
                 </div>
 
