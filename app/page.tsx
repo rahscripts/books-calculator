@@ -52,12 +52,22 @@ export default function Home() {
       </div>
 
       {/* Footer - Minimal */}
-      <footer className="w-full p-8 flex justify-center gap-6 text-sm font-medium text-neutral-400 z-50">
-        <Link href="/login" className="hover:text-black transition-colors">Start</Link>
-        <span className="text-neutral-200">/</span>
-        <a href="https://x.com/rahscripts" target="_blank" className="hover:text-black transition-colors">Twitter</a>
-        <span className="text-neutral-200">/</span>
-        <a href="/terms" className="hover:text-black transition-colors">Terms</a>
+      <footer className="w-full border-t border-neutral-200">
+        <div className="mx-auto max-w-5xl px-6 py-6 flex items-center justify-center gap-4 text-xs text-neutral-500 tracking-wide">
+          <a
+            href="/terms"
+            className="hover:text-neutral-900 transition-colors"
+          >
+            Terms
+          </a>
+          <span className="opacity-40">•</span>
+          <a
+            href="/privacy"
+            className="hover:text-neutral-900 transition-colors"
+          >
+            Privacy
+          </a>
+        </div>
       </footer>
 
     </main>
