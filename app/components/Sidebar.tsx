@@ -26,10 +26,13 @@ const Sidebar = () => {
     return (
         <aside className="md:fixed left-0 top-0 h-full w-64 bg-white border-r border-slate-200 flex flex-col z-50 
             max-md:w-full max-md:h-auto max-md:border-b max-md:flex-row max-md:items-center max-md:justify-between max-md:p-4 max-md:sticky max-md:top-0">
+            <Link href={"/"}>
+                <div className="p-8 w-fit pb-4 max-md:p-0">
 
-            <div className="p-8 pb-4 max-md:p-0">
-                <h1 className="text-xl font-bold tracking-tight">biblion</h1>
-            </div>
+                    <div className="text-xl font-bold tracking-tight">biblion</div>
+
+                </div>
+            </Link>
 
             <nav className="flex-1 px-4 space-y-1 max-md:flex max-md:space-y-0 max-md:px-0 max-md:gap-1 max-md:items-center max-md:justify-center">
                 {links.map((link) => {
@@ -76,7 +79,7 @@ const Sidebar = () => {
                     {/* Sign Out (Hover View) */}
                     <button
                         onClick={() => signOut({ callbackUrl: "/" })}
-                        className="absolute inset-0 flex items-center justify-center gap-2 bg-red-50 text-red-600 font-bold text-xs translate-y-full group-hover:translate-y-0 transition-transform duration-300 hover:bg-red-100"
+                        className="absolute inset-0 flex items-center justify-center gap-2 bg-red-50 text-red-600 cursor-pointer font-bold text-xs translate-y-full group-hover:translate-y-0 transition-transform duration-300 hover:bg-red-100"
                     >
                         <LogOut className="w-4 h-4" />
                         Sign Out
