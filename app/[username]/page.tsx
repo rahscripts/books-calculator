@@ -116,7 +116,7 @@ export default async function PublicPage({ params }: { params: { username: strin
 
                 <div className="text-center pt-12">
                     <Link href="/" className="text-sm text-slate-400 hover:text-slate-900 transition-colors">
-                        Made with <span className="font-semibold">biblion.</span>
+                        Made with <span className="font-semibold">booksofme.</span>
                     </Link>
                 </div>
 

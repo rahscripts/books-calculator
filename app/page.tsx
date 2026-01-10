@@ -10,7 +10,7 @@ export default function Home() {
 
       {/* Nav */}
       <nav className="w-full p-6 md:p-10 flex justify-between items-center z-50">
-        <span className="text-xl font-bold tracking-tight">biblion</span>
+        <span className="text-xl font-bold tracking-tight">booksofme</span>
         <Link href="/login" className="text-sm font-medium text-neutral-500 hover:text-black transition-colors">
           Sign In
         </Link>

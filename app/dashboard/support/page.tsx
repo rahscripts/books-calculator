@@ -20,7 +20,7 @@ export default function SupportPage() {
                     Keep the Tracker Alive.
                 </h1>
                 <p className="text-slate-500 text-lg max-w-md mx-auto leading-relaxed">
-                    biblion is free and open. If it helps you read more, consider fueling my next coding session.
+                    booksofme is free and open. If it helps you read more, consider fueling my next coding session.
                 </p>
             </div>
 
@@ -43,7 +43,7 @@ export default function SupportPage() {
                             </p>
                         </div>
                         <Link
-                        target="_blank"
+                            target="_blank"
                             href="https://buymeacoffee.com/rahscripts"
                             className="inline-flex items-center justify-center gap-2 w-full py-4 bg-white text-yellow-900 cursor-pointer font-semibold rounded-xl shadow-sm hover:bg-yellow-50 transition-colors"
                         >
@@ -65,10 +65,10 @@ export default function SupportPage() {
                             </p>
                         </div>
                         <button
-                    
+
                             className="inline-flex cursor-pointer items-center justify-center gap-2 w-full py-4 bg-neutral-900 text-white font-semibold rounded-xl hover:bg-neutral-800 transition-colors"
                         >
-                            Share 
+                            Share
                         </button>
                     </div>
                 </div>
@@ -76,11 +76,11 @@ export default function SupportPage() {
             </div>
 
             <div className="mt-12 text-center">
-                
+
                 <p className="text-xs text-slate-400 font-medium">
                     Built by <a href="https://x.com/rahscripts" target="_blank" className="underline hover:text-slate-600">@rahscripts</a> with ❤️ and Next.js
                 </p>
-              
+
             </div>
 
         </div>

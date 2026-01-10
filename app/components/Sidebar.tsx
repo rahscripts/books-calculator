@@ -29,7 +29,7 @@ const Sidebar = () => {
             <Link href={"/"}>
                 <div className="p-8 w-fit pb-4 max-md:p-0">
 
-                    <div className="text-xl font-bold tracking-tight">biblion</div>
+                    <div className="text-xl font-bold tracking-tight">booksofme</div>
 
                 </div>
             </Link>
