@@ -17,6 +17,24 @@ export type Book = {
     currentPage: number;
 };
 
+export async function checkUsernameAvailability(username: string) {
+    if (!username || username.length < 3) return { available: false, error: "Too short" };
+
+    // Alphanumeric + underscores only
+    if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+        return { available: false, error: "Invalid characters" };
+    }
+
+    const client = await clientPromise;
+    const db = client.db();
+
+    const existing = await db.collection("users").findOne({
+        username: { $regex: new RegExp(`^${username}$`, 'i') } // Case insensitive check
+    });
+
+    return { available: !existing };
+}
+
 export async function updateProfile(data: { username?: string; name?: string; image?: string }) {
     const session = await auth();
     if (!session?.user?.email) {

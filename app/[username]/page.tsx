@@ -11,7 +11,7 @@ export default async function PublicPage({ params }: { params: { username: strin
     }
 
     // Calculate Stats
-    console.log(profile);
+
     const books = profile.books;
     const totalBooks = books.length;
 
