@@ -61,6 +61,7 @@ export default async function Home() {
             </div>
 
             {/* Responsive Text Sizes */}
+            <div><a href="https://www.producthunt.com/products/booksofme?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-booksofme" target="_blank" rel="noopener noreferrer"><img alt="booksofme -   try booksofme and show-off your readings. | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1060917&amp;theme=light&amp;t=1768152251511" /></a></div>
             <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.1] md:leading-[0.9] text-black max-w-4xl">
               Showcase your <br className="hidden md:block" />
               <span className="text-emerald-900 selection:bg-emerald-200">reading journey.</span>
