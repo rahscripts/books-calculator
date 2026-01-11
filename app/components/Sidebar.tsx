@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { getUserSettings } from "@/app/actions";
-import { LayoutDashboard, UserPenIcon, Coffee, LogOut, User as UserIcon } from "lucide-react";
+import { LayoutDashboard, UserPenIcon, ArrowBigUpDash, Coffee, LogOut, User as UserIcon } from "lucide-react";
 
 const Sidebar = () => {
     const pathname = usePathname();
@@ -21,6 +21,7 @@ const Sidebar = () => {
         { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
         { name: "Support", href: "/dashboard/support", icon: Coffee },
         { name: "Profile", href: "/dashboard/profile", icon: UserPenIcon },
+        { name: "LeaderBoard", href: "/dashboard/leaderboard", icon: ArrowBigUpDash },
     ];
 
     return (

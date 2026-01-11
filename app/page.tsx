@@ -102,7 +102,7 @@ export default async function Home() {
                 <div className="flex items-center gap-4 shrink-0 self-start md:self-auto">
                   <Image src="/mainlogo.png" alt="profile" width={64} height={64} className="rounded-full w-12 h-12 md:w-16 md:h-16" />
                   <div>
-                    <h3 className="font-bold text-lg">Mr.</h3>
+                    <h3 className="font-bold text-lg">M R</h3>
                     <p className="text-sm text-neutral-500">Viewing Portfolio</p>
                   </div>
                 </div>
