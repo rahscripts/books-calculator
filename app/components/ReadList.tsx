@@ -32,27 +32,22 @@ interface GoogleBookItem {
   volumeInfo: GoogleBookVolumeInfo;
 }
 
-export default function ReadList() {
+interface ReadListProps {
+  initialBooks?: Book[];
+}
+
+export default function ReadList({ initialBooks = [] }: ReadListProps) {
   // State
   const [username, setUsername] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<GoogleBookItem[]>([]);
-  const [books, setBooks] = useState<Book[]>([]);
+  const [books, setBooks] = useState<Book[]>(initialBooks);
   const [loading, setLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // 1. Load Data safely (Fixes Hydration Bug)
+  // 1. Initialize & Fetch Username
   useEffect(() => {
     setMounted(true);
-    const saved = localStorage.getItem("my-books");
-    if (saved) {
-      try {
-        setBooks(JSON.parse(saved));
-      } catch (e) {
-        console.error("Save file corrupted", e);
-      }
-    }
-
     // Fetch username for public link
     getUserSettings().then(settings => {
       if (settings?.username) setUsername(settings.username);

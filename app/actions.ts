@@ -132,3 +132,13 @@ export async function getUserSettings() {
         image: user.image || session.user.image
     } : null;
 }
+export async function getBooks(): Promise<Book[]> {
+    const session = await auth();
+    if (!session?.user?.email) return [];
+
+    const client = await clientPromise;
+    const db = client.db();
+    const user = await db.collection("users").findOne({ email: session.user.email });
+
+    return (user?.books as Book[]) || [];
+}
