@@ -74,6 +74,18 @@ function BookCard({ book, onUpdate, onDelete }: { book: Book, onUpdate: (id: str
 
       {/* Bottom Section: Controls */}
       <div className="pt-4 border-t border-slate-100 mt-auto space-y-3">
+        <div className="grid grid-cols-3 gap-2">
+          {[5, 10, 20].map(amount => (
+            <button
+              key={amount}
+              onClick={() => handleQuickAdd(-amount)}
+              disabled={isFinished}
+              className="flex items-center justify-center gap-1 py-1.5 rounded-lg border border-slate-100 text-[10px] bg-red-100 font-bold text-slate-600 hover:bg-red-200 hover:border-slate-200 hover:text-red-600 cursor-pointer transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              -{amount}
+            </button>
+          ))}
+        </div>
 
         {/* Manual Input */}
         <div className="flex items-center justify-between gap-3">
@@ -95,7 +107,7 @@ function BookCard({ book, onUpdate, onDelete }: { book: Book, onUpdate: (id: str
               key={amount}
               onClick={() => handleQuickAdd(amount)}
               disabled={isFinished}
-              className="flex items-center justify-center gap-1 py-1.5 rounded-lg border border-slate-100 bg-white text-[10px] font-bold text-slate-600 hover:bg-slate-50 hover:border-slate-200 hover:text-blue-600 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center justify-center gap-1 py-1.5 rounded-lg border border-slate-100 bg-green-100 text-[10px] font-bold text-slate-600 hover:bg-green-200 hover:border-slate-200 hover:text-green-600 cursor-pointer transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               +{amount}
             </button>
