@@ -100,7 +100,7 @@ export default async function Home() {
               {/* Main Content: Flex Col on mobile, Row on Desktop */}
               <div className="p-6 md:p-12 flex flex-col md:flex-row gap-8 items-center md:items-start justify-between">
                 {/* User Profile */}
-                <div className="flex items-center gap-4 shrink-0 self-start md:self-auto">
+                <div className="flex flex-1 items-center gap-4 shrink-0 self-start md:self-auto">
                   <Image src="/mainlogo.png" alt="profile" width={64} height={64} className="rounded-full w-12 h-12 md:w-16 md:h-16" />
                   <div>
                     <h3 className="font-bold text-lg">M R</h3>
@@ -110,16 +110,14 @@ export default async function Home() {
 
                 {/* Iframe Embed */}
                 {/* Changed w-300 to w-full md:w-[width] to handle mobile width */}
-                <Link href="/rahscripts" >
-                  <div className="w-full md:w-[32rem] h-64 md:h-120 bg-neutral-50 rounded-lg border border-neutral-100 overflow-hidden shadow-inner">
-                    <iframe
-                      src="https://booksofme.com/rahscripts"
-                      className="w-full h-full border-0"
-                      title="RahScripts Preview"
-                      loading="lazy"
-                    ></iframe>
-                  </div>
-                </Link>
+                <div className="w-full flex-3 md:w-[32rem] h-64 md:h-120 bg-neutral-50 rounded-lg border border-neutral-100 overflow-hidden shadow-inner">
+                  <iframe
+                    src="https://booksofme.com/rahscripts"
+                    className="w-full h-full border-0"
+                    title="RahScripts Preview"
+                    loading="lazy"
+                  ></iframe>
+                </div>
               </div>
             </div>
           </div>
