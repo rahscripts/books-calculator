@@ -105,7 +105,7 @@ export default function ReadList({ initialBooks = [] }: ReadListProps) {
       title: info.title || "Untitled",
       authors: info.authors || ["Unknown"],
       cover: info.imageLinks?.thumbnail || "",
-      pageCount: info.pageCount || 100, // Default to avoid 0 division
+      pageCount: info.pageCount || 200, // Default to avoid 0 division
       currentPage: 0,
     };
 

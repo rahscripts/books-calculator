@@ -46,7 +46,7 @@ function BookCard({ book, onUpdate, onDelete }: { book: Book, onUpdate: (id: str
             </h3>
             <button
               onClick={(e) => { e.stopPropagation(); onDelete(book.id); }}
-              className="absolute top-4 right-4 text-slate-300 hover:text-red-500 transition-colors p-1.5 hover:bg-red-50 rounded-lg opacity-0 group-hover:opacity-100"
+              className="absolute top-4 right-4 flex items-center justify-center text-slate-300 hover:text-red-500 transition-colors duration-300 p-1.5 hover:bg-red-50 rounded-lg cursor-pointer opacity-100"
             >
               <Icons.Trash />
             </button>
