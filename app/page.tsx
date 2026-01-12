@@ -247,8 +247,10 @@ export default async function Home() {
               <a href="/privacy" className="hover:text-black transition-colors">Privacy</a>
               <a href="mailto:support@booksofme.com" className="hover:text-black transition-colors">Contact</a>
             </div>
+
           </div>
         </footer>
+
       </section>
 
     </main>

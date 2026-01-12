@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Barriecito&family=Comic+Relief&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Gabarito:wght@400..900&family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Patrick+Hand&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 @import "tailwindcss";
+@import "uploadthing/tw/v4";
+@source "../node_modules/@uploadthing/react/dist";
 
 @plugin "daisyui" {
   themes: light --default;

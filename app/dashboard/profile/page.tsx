@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { updateProfile, getUserSettings, checkUsernameAvailability } from "@/app/actions";
 import { User, Link as LinkIcon, Image as ImageIcon, Check, Ban } from "lucide-react";
-import Image from "next/image";
+import { UploadButton } from "@/app/utils/uploadthing";
 
 export default function SettingsPage() {
     const [formData, setFormData] = useState({
@@ -15,6 +15,7 @@ export default function SettingsPage() {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [msg, setMsg] = useState("");
+    const [copyTrue, setCopyTrue] = useState(false);
 
     // Username validation state
     const [usernameStatus, setUsernameStatus] = useState<'idle' | 'checking' | 'available' | 'taken'>('idle');
@@ -47,8 +48,6 @@ export default function SettingsPage() {
 
             setUsernameStatus('checking');
 
-            // Debounce manually or just direct for simplicity in this robust environment? 
-            // We'll use a small timeout to avoid spamming
             const timeoutId = setTimeout(async () => {
                 const res = await checkUsernameAvailability(username);
                 setUsernameStatus(res.available ? 'available' : 'taken');
@@ -89,6 +88,13 @@ export default function SettingsPage() {
 
     if (loading) return <div className="p-8 text-center text-slate-400 text-sm animate-pulse">Loading settings...</div>;
 
+
+    const copyBtn = () => {
+        navigator.clipboard.writeText(publicLink);
+        setCopyTrue(true)
+        setTimeout(() => setCopyTrue(false), 2000)
+    }
+
     return (
         <div className="max-w-2xl mx-auto space-y-8 pb-20">
             <div>
@@ -127,7 +133,6 @@ export default function SettingsPage() {
                                 ${usernameStatus === 'taken' ? 'border-red-300 focus:ring-red-100' : 'border-slate-200 focus:ring-slate-900'}
                             `}
                         />
-                        {/* Status Icon */}
                         <div className="absolute right-4 top-1/2 -translate-y-1/2">
                             {usernameStatus === 'checking' && <span className="w-4 h-4 border-2 border-slate-200 border-t-slate-500 rounded-full animate-spin block"></span>}
                             {usernameStatus === 'available' && <Check className="w-4 h-4 text-emerald-500" />}
@@ -135,7 +140,6 @@ export default function SettingsPage() {
                         </div>
                     </div>
 
-                    {/* Error Message */}
                     {usernameStatus === 'taken' ? (
                         <p className="text-xs font-bold text-red-500 pl-1 animate-pulse">
                             Username already exists.
@@ -145,40 +149,63 @@ export default function SettingsPage() {
                     )}
                 </div>
 
-                {/* Profile Image URL */}
-                <div className="space-y-3">
+                {/* Profile Image Section */}
+                <div className="space-y-4">
                     <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
-                        <ImageIcon className="w-4 h-4" /> Profile Image URL
+                        <ImageIcon className="w-4 h-4" /> Profile Photo
                     </label>
-                    <div className="flex gap-4 items-start">
-                        <div className="relative w-16 h-16 bg-slate-100 rounded-2xl overflow-hidden shrink-0 border border-slate-200">
+                    <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start p-6 bg-slate-50/50 border border-slate-100 rounded-3xl">
+                        <div className="relative w-24 h-24 bg-white rounded-full overflow-hidden shrink-0 border-1 border-green-600 shadow-sm">
                             {formData.image ? (
-                                <img src={formData.image} alt="Preview" className="object-cover" />
+                                <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
                             ) : (
-                                <div className="w-full h-full flex items-center justify-center text-2xl">👤</div>
+                                <div className="w-full h-full flex items-center justify-center text-4xl">👤</div>
                             )}
                         </div>
-                        <div className="flex-1 space-y-2">
-                            <input
-                                type="text"
-                                value={formData.image}
-                                onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                                placeholder="https://example.com/me.jpg"
-                                className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-slate-900 transition-all text-sm font-medium placeholder:text-slate-400"
+
+                        <div className="flex-1 space-y-2 w-full">
+                            <div className="flex flex-col gap-2">
+
+                                <p className="text-xs text-slate-500">Upload a new profile picture.</p>
+                            </div>
+
+                            <UploadButton
+                                endpoint="imageUploader"
+                                onClientUploadComplete={(res) => {
+                                    if (res?.[0]) {
+                                        setFormData(prev => ({ ...prev, image: res[0].ufsUrl }));
+                                        setMsg("✨ Photo updated! Don't forget to save changes.");
+                                    }
+                                }}
+                                onUploadError={(error: Error) => {
+                                    setMsg(`❌ Upload failed: ${error.message}`);
+                                }}
+                                appearance={{
+                                    button: "ut-ready:bg-slate-950 ut-uploading:bg-slate-700 bg-slate-900 border-none rounded-xl text-xs font-bold px-8 h-12 transition-all hover:scale-[1.02] active:scale-95 shadow-md w-full sm:w-auto",
+                                    allowedContent: "text-[10px] text-slate-400 font-medium",
+                                    container: "w-full sm:w-auto justify-center sm:justify-start items-center sm:items-start",
+                                }}
+                                content={{
+                                    button({ ready }) {
+                                        if (ready) return "Upload New Photo";
+                                        return "Preparing...";
+                                    },
+                                    allowedContent: "Max size: 4MB"
+                                }}
                             />
-                            <p className="text-[10px] text-slate-400 pl-1"> Paste a direct link to an image (e.g. from Imgur, Discord, etc.)</p>
+
+
                         </div>
                     </div>
                 </div>
 
-
-                <div className="pt-4 border-t border-slate-50 flex items-center justify-between">
-                    {msg ? <p className={`text-sm font-bold animate-pulse ${msg.includes("✅") ? "text-emerald-600" : "text-red-500"}`}>{msg}</p> : <div></div>}
+                <div className="pt-4 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    {msg ? <p className={`text-sm font-bold animate-pulse text-center sm:text-left ${msg.includes("✅") || msg.includes("✨") ? "text-emerald-600" : "text-red-500"}`}>{msg}</p> : <div className="hidden sm:block"></div>}
 
                     <button
                         onClick={handleSave}
                         disabled={saving || usernameStatus === 'taken'}
-                        className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold text-sm hover:bg-slate-800 disabled:opacity-50 transition-all shadow-lg hover:shadow-xl active:scale-95 disabled:cursor-not-allowed"
+                        className="w-full sm:w-auto px-10 py-4 bg-slate-900 text-white rounded-2xl font-bold text-sm hover:bg-slate-800 disabled:opacity-50 transition-all shadow-lg hover:shadow-xl active:scale-95 disabled:cursor-not-allowed"
                     >
                         {saving ? "Saving..." : "Save Changes"}
                     </button>
@@ -188,15 +215,15 @@ export default function SettingsPage() {
 
             {/* Public Link Display */}
             {formData.username && (
-                <div className="bg-white p-6 rounded-3xl border border-slate-100 flex items-center justify-between shadow-sm cursor-pointer hover:border-slate-300 transition-colors group" onClick={() => navigator.clipboard.writeText(publicLink)}>
+                <div className="bg-white p-6 rounded-3xl border border-slate-100 flex items-center justify-between shadow-sm cursor-pointer hover:border-slate-300 transition-colors group" onClick={copyBtn}>
                     <div>
                         <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Your Public Link</div>
-                        <a href={`/${formData.username}`} target="_blank" className="font-medium text-blue-600 hover:underline text-sm group-hover:text-blue-700">
+                        <a href={`/${formData.username}`} target="_blank" className="font-medium text-blue-600 hover:underline text-sm group-hover:text-blue-700" onClick={(e) => e.stopPropagation()}>
                             {publicLink}
                         </a>
                     </div>
                     <span className="text-xs bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl text-slate-500 font-medium group-hover:bg-slate-100">
-                        Copy
+                        {copyTrue ? "Copied!" : "Copy"}
                     </span>
                 </div>
             )}
