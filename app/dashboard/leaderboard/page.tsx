@@ -53,11 +53,10 @@ export default async function LeaderBoardPage() {
                 {users.map((user, index) => {
                     const rank = index + 1;
                     return (
-                        <section>
+                        <section key={user._id.toString()}>
                             <Link target="_blank" href={`https://booksofme.com/${user.username}`}>
                                 <div
-                                    key={user._id.toString()}
-                                    className="flex items-center justify-between p-4 bg-white border border-neutral-100 rounded-2xl hover:border-emerald-500/20 hover:shadow-lg hover:shadow-emerald-500/5 transition-all duration-300 group"
+                                    className="flex items-center justify-between p-4 bg-white border border-neutral-200 rounded-2xl hover:border-emerald-500/20 hover:shadow-lg hover:shadow-emerald-500/5 transition-all duration-300 group"
                                 >
                                     <div className="flex items-center gap-4 md:gap-6">
                                         {/* Rank */}
