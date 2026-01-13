@@ -74,10 +74,10 @@ export default async function LoginPage() {
                 <div className="w-full max-w-sm space-y-10">
                     <div className="space-y-2 text-center lg:text-left">
                         <h1 className="text-3xl lg:text-4xl font-bold tracking-tighter text-neutral-950">
-                            Welcome back
+                            Access your dashboard
                         </h1>
                         <p className="text-neutral-500 text-sm lg:text-base">
-                            Enter your credentials to access your dashboard.
+                            Sign in to manage your work and progress.
                         </p>
                     </div>
 
