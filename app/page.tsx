@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BookOpen, Share2, Search, Lock, BarChart3, ArrowRight } from "lucide-react";
 import UsernameClaim from "./components/landing/UsernameClaim";
+import LeaderboardPreview from "./components/landing/LeaderboardPreview";
 import Image from "next/image";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
@@ -122,6 +123,13 @@ export default async function Home() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* -----------------------------------------------------------------
+         Section 2.5: Leaderboard Preview
+         ------------------------------------------------------------------ */}
+      <section className="min-h-dvh w-full flex items-center justify-center snap-center p-4 relative z-10">
+        <LeaderboardPreview />
       </section>
 
       {/* -----------------------------------------------------------------

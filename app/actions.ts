@@ -142,3 +142,41 @@ export async function getBooks(): Promise<Book[]> {
 
     return (user?.books as Book[]) || [];
 }
+export async function getLeaderboard(limit: number = 5) {
+    const client = await clientPromise;
+    const db = client.db();
+
+    const users = await db.collection("users").aggregate([
+        {
+            $addFields: {
+                completedBooksCount: {
+                    $size: {
+                        $filter: {
+                            input: { $ifNull: ["$books", []] },
+                            as: "book",
+                            cond: { $eq: ["$$book.currentPage", "$$book.pageCount"] }
+                        }
+                    }
+                }
+            }
+        },
+        { $sort: { completedBooksCount: -1 } },
+        { $limit: limit },
+        {
+            $project: {
+                name: 1,
+                username: 1,
+                image: 1,
+                completedBooksCount: 1
+            }
+        }
+    ]).toArray();
+
+    return users.map(user => ({
+        id: user._id.toString(),
+        name: user.name,
+        username: user.username,
+        image: user.image,
+        completedBooksCount: user.completedBooksCount
+    }));
+}
