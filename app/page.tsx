@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BookOpen, Share2, Search, Lock, BarChart3, ArrowRight } from "lucide-react";
 import UsernameClaim from "./components/landing/UsernameClaim";
 import LeaderboardPreview from "./components/landing/LeaderboardPreview";
+import AppFlow from "./components/landing/AppFlow";
 import Image from "next/image";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
@@ -81,6 +82,11 @@ export default async function Home() {
       </section>
 
       {/* -----------------------------------------------------------------
+         Section 3: App Flow
+         ------------------------------------------------------------------ */}
+      <AppFlow />
+
+      {/* -----------------------------------------------------------------
          Section 2: Mock UI Preview
          ------------------------------------------------------------------ */}
       <section className="min-h-dvh w-full flex items-center justify-center p-4 relative z-10 overflow-hidden">
@@ -143,6 +149,9 @@ export default async function Home() {
       <section className="min-h-dvh w-full flex items-center justify-center p-4 relative z-10">
         <LeaderboardPreview />
       </section>
+
+
+
       {/* -----------------------------------------------------------------
          Section 5: CTA & Footer
          ------------------------------------------------------------------ */}
