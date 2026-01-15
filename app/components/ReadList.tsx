@@ -140,6 +140,17 @@ export default function ReadList({ initialBooks = [] }: ReadListProps) {
     return { totalBooks, totalPages, totalRead, percent, completedBooks };
   }, [books]);
 
+  const sortedBooks = useMemo(() => {
+    return [...books].sort((a, b) => {
+      const isACompleted = a.currentPage >= a.pageCount;
+      const isBCompleted = b.currentPage >= b.pageCount;
+
+      if (!isACompleted && isBCompleted) return -1;
+      if (isACompleted && !isBCompleted) return 1;
+      return 0;
+    });
+  }, [books]);
+
   if (!mounted) return null; // Wait for client load
 
   const handleCopyLink = () => {
@@ -236,13 +247,13 @@ export default function ReadList({ initialBooks = [] }: ReadListProps) {
               className="flex items-center gap-2 cursor-pointer p-2 px-3 bg-white text-slate-900 text-xs font-bold rounded-lg hover:bg-slate-100 transition-colors"
             >
               Visit Profile
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
             </Link>
             <button
               onClick={handleCopyLink}
-              className="flex items-center gap-2 p-2 cursor-pointer bg-white text-slate-900 text-xs font-bold rounded-lg hover:bg-slate-100 transition-colors"
+              className="flex items-center gap-2 p-2 px-3 cursor-pointer bg-white text-slate-900 text-xs font-bold rounded-lg hover:bg-slate-100 transition-colors"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="size-3.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
               </svg>
 
@@ -263,7 +274,7 @@ export default function ReadList({ initialBooks = [] }: ReadListProps) {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 items-stretch">
-            {books.map((book) => (
+            {sortedBooks.map((book) => (
               <BookCard
                 key={book.id}
                 book={book}

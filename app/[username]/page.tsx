@@ -76,7 +76,13 @@ export default async function PublicPage({ params }: { params: { username: strin
 
                 {/* Books Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {books.map((book) => (
+                    {[...books].sort((a, b) => {
+                        const isACompleted = a.currentPage >= a.pageCount;
+                        const isBCompleted = b.currentPage >= b.pageCount;
+                        if (!isACompleted && isBCompleted) return -1;
+                        if (isACompleted && !isBCompleted) return 1;
+                        return 0;
+                    }).map((book) => (
                         <div key={book.id} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex gap-4">
                             <div className="relative w-20 h-28 flex-shrink-0 bg-slate-200 rounded shadow-md overflow-hidden">
                                 {book.cover ? (
