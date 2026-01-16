@@ -13,7 +13,11 @@ import toast from "react-hot-toast";
 const Icons = {
   Search: () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>,
   BookOpen: () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>,
-  Share: () => <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
+  Share: () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>,
+  Profile: () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+    <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clipRule="evenodd" />
+  </svg>
+
 };
 
 // Types for Google Books API response
@@ -44,6 +48,7 @@ export default function ReadList({ initialBooks = [] }: ReadListProps) {
   const [books, setBooks] = useState<Book[]>(initialBooks);
   const [loading, setLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
 
   // 1. Initialize & Fetch Username
   useEffect(() => {
@@ -153,10 +158,14 @@ export default function ReadList({ initialBooks = [] }: ReadListProps) {
 
   if (!mounted) return null; // Wait for client load
 
+
+
   const handleCopyLink = () => {
     navigator.clipboard.writeText(`https://booksofme.com/${username}`);
     toast.success("copied to clipboard");
-  }
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000); // Reset after 2s
+  };
 
   return (
     <div className="space-y-8 font-sans text-slate-800">
@@ -230,34 +239,49 @@ export default function ReadList({ initialBooks = [] }: ReadListProps) {
 
       {/* 3. SHARABLE LINK BANNER */}
       {username && (
-        <div className="bg-gradient-to-r from-green-900 to-green-800 text-white p-4 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4 shadow-lg">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-white/10 rounded-lg">
-              <Icons.Share />
-            </div>
-            <div>
-              <div className="text-sm font-bold">Your Public Showcase is Live</div>
-              <div className="text-xs text-slate-300">Share your reading journey with the world.</div>
-            </div>
-          </div>
-          <div className="flex gap-2">
-            <Link
-              href={`/${username}`}
-              target="_blank"
-              className="flex items-center gap-2 cursor-pointer p-2 px-3 bg-white text-slate-900 text-xs font-bold rounded-lg hover:bg-slate-100 transition-colors"
-            >
-              Visit Profile
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-            </Link>
-            <button
-              onClick={handleCopyLink}
-              className="flex items-center gap-2 p-2 px-3 cursor-pointer bg-white text-slate-900 text-xs font-bold rounded-lg hover:bg-slate-100 transition-colors"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="size-3.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
-              </svg>
+        <div className="bg-white border border-slate-200 p-5 rounded-xl shadow-sm">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
 
-            </button>
+            {/* Left Side: Text and Icon */}
+            <div className="flex items-center gap-4">
+              <div className="p-2.5 bg-green-50 text-green-700 rounded-xl border border-green-100 shrink-0">
+                <Icons.Share />
+              </div>
+              <div className="space-y-0.5">
+                <div className="text-slate-900 font-bold leading-none">Public Profile</div>
+                <div className="text-slate-500 text-xs">
+                  Anyone with the link can view your list.
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side: The Link Action Area */}
+            <div className="flex items-center bg-green-50 border border-green-200 rounded-lg p-1.5 pl-4 w-full md:w-auto self-stretch md:self-center">
+              <span className="text-slate-400 text-xs font-mono truncate max-w-[180px] mr-4">
+                booksofme.com/{username}
+              </span>
+
+              <div className="flex gap-2 ml-auto">
+                <Link
+                  href={`/${username}`}
+                  target="_blank"
+                  title="Open Profile"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-md text-xs font-bold transition-all shadow-sm bg-white text-slate-700 border border-slate-200 hover:bg-slate-50"
+                >
+                  View
+                </Link>
+                <button
+                  onClick={handleCopyLink}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-md text-xs font-bold transition-all cursor-pointer shadow-sm ${isCopied
+                    ? "bg-green-600 text-white border border-green-600 shadow-green-100"
+                    : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-50"
+                    }`}
+                >
+                  {isCopied ? "Copied" : "Copy"}
+                </button>
+              </div>
+            </div>
+
           </div>
         </div>
       )}
