@@ -24,6 +24,12 @@ const Sidebar = () => {
         { name: "LeaderBoard", href: "/dashboard/leaderboard", icon: ArrowBigUpDash },
     ];
 
+    const handleSignOut = () => {
+        if (confirm("Are you sure you want to sign out?")) {
+            signOut({ callbackUrl: "/" });
+        }
+    };
+
     return (
         <aside className="md:fixed left-0 top-0 h-full w-64 bg-white border-r border-slate-200 flex flex-col z-50 
             max-md:w-full max-md:h-auto max-md:border-b max-md:flex-row max-md:items-center max-md:justify-between max-md:p-4 max-md:sticky max-md:top-0">
@@ -82,7 +88,7 @@ const Sidebar = () => {
 
                     {/* Sign Out (Hover View) */}
                     <button
-                        onClick={() => signOut({ callbackUrl: "/" })}
+                        onClick={handleSignOut}
                         className="absolute inset-0 flex items-center justify-center gap-2 bg-red-50 text-red-600 cursor-pointer font-bold text-xs translate-y-full group-hover:translate-y-0 transition-transform duration-300 hover:bg-red-100"
                     >
                         <LogOut className="w-4 h-4" />
@@ -94,7 +100,7 @@ const Sidebar = () => {
 
             {/* Mobile Sign Out (Icon Only) */}
             <button
-                onClick={() => signOut({ callbackUrl: "/" })}
+                onClick={handleSignOut}
                 className="hidden max-md:flex p-2 text-slate-500 hover:text-red-500"
             >
                 <LogOut className="w-5 h-5" />
