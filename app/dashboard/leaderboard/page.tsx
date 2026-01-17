@@ -132,7 +132,7 @@ export default async function LeaderBoardPage() {
                                             {user.completedBooksCount}
                                             <BookOpen className="w-4 h-4 md:w-5 md:h-5 text-emerald-500" />
                                         </span>
-                                        <span className="text-[10px] md:text-xs text-neutral-400 font-medium uppercase tracking-wider">
+                                        <span className="text-[10px] md:text-xs max-sm:hidden text-neutral-400 font-medium uppercase tracking-wider">
                                             total Books Read
                                         </span>
                                     </div>
