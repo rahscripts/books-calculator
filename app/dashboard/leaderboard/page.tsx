@@ -41,13 +41,34 @@ export default async function LeaderBoardPage() {
             }
         }
     ]).toArray();
+    const userName = session?.user?.name || "there";
+    const userRank = users.findIndex(user => user.name === userName) + 1 || null;
+
+    const leaderboardMessage = userRank
+        ?
+        (userRank < 100
+            ? `Hey ${userName || "there"}, your current position on the leaderboard is #${userRank}.`
+            : `Hey ${userName || "there"}, you are not in the top 100.`)
+
+        : `Hey ${userName || "there"}, you are not in the leaderboard.`;
 
     return (
         <main className="max-w-3xl mx-auto py-8 px-4 space-y-8">
-            <div className="text-center space-y-4">
-                <h1 className="text-4xl font-bold tracking-tight">Leaderboard</h1>
-                <p className="text-neutral-500">Top readers in the community.</p>
+            <div className="text-center space-y-2 px-4">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight ">
+                    LeaderBoard
+                </h1>
+
+
+
+                <p className="text-xs sm:text-sm md:text-base text-green-700">
+                    Top readers in the community.
+                </p>
+                <p className="italic opacity-80 text-xs sm:text-sm md:text-base font-medium ">
+                    {leaderboardMessage}
+                </p>
             </div>
+
 
             <div className="space-y-3">
                 {users.map((user, index) => {
