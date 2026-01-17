@@ -52,6 +52,7 @@ export default async function LeaderBoardPage() {
 
         : `Hey ${userName || "there"}, you are not in the leaderboard.`;
 
+
     return (
         <main className="max-w-3xl mx-auto py-8 px-4 space-y-8">
             <div className="text-center space-y-2 px-4">
@@ -73,11 +74,13 @@ export default async function LeaderBoardPage() {
             <div className="space-y-3">
                 {users.map((user, index) => {
                     const rank = index + 1;
+                    const highlistUser = session?.user?.name === user.name;
+
                     return (
                         <section key={user._id.toString()}>
                             <Link target="_blank" href={`https://booksofme.com/${user.username}`}>
                                 <div
-                                    className="flex items-center justify-between p-4 bg-white border border-neutral-200 rounded-2xl hover:border-emerald-500/20 hover:shadow-lg hover:shadow-emerald-500/5 transition-all duration-300 group"
+                                    className={`flex items-center justify-between p-4 ${highlistUser ? "bg-green-100" : "bg-white"} border border-neutral-200 rounded-2xl hover:border-emerald-500/20 hover:shadow-lg hover:shadow-emerald-500/5 transition-all duration-300 group`}
                                 >
                                     <div className="flex items-center gap-4 md:gap-6">
                                         {/* Rank */}
