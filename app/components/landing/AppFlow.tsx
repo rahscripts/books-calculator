@@ -38,7 +38,7 @@ export default function AppFlow() {
     ];
 
     return (
-        <section className="w-full py-12 max-sm:p-4 md:py-24 relative z-10">
+        <section className="w-full py-12 max-md:p-4 lg:p-20 md:py-24 relative z-10">
             <div className="w-full max-w-6xl mx-auto px-4">
                 <div className="text-center space-y-4 mb-20 max-w-3xl mx-auto">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-[10px] font-bold uppercase tracking-wider text-emerald-700">
@@ -80,7 +80,7 @@ export default function AppFlow() {
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.2 }}
                             className={`
-                relative py-12 px-8 min-h-[400px] border border-dashed border-neutral-200 shadow-sm
+                relative py-12 px-8 border border-dashed border-neutral-200 shadow-sm
                 flex flex-col items-center justify-center text-center space-y-6 transition-all duration-700
                 hover:shadow-2xl hover:shadow-emerald-500/10 hover:border-emerald-500/30 group z-10
                 ${step.bg}
