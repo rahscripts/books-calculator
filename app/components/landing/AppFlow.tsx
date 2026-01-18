@@ -38,7 +38,7 @@ export default function AppFlow() {
     ];
 
     return (
-        <section className="w-full py-12 md:py-24 relative z-10">
+        <section className="w-full py-12 max-sm:p-4 md:py-24 relative z-10">
             <div className="w-full max-w-6xl mx-auto px-4">
                 <div className="text-center space-y-4 mb-20 max-w-3xl mx-auto">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-[10px] font-bold uppercase tracking-wider text-emerald-700">
@@ -53,7 +53,7 @@ export default function AppFlow() {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6 relative">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4 relative">
                     {/* Connection Arrows (Desktop) */}
                     <div className="hidden lg:block absolute top-[40%] left-[29%] -translate-y-1/2 z-0">
                         <motion.div
@@ -80,13 +80,13 @@ export default function AppFlow() {
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.2 }}
                             className={`
-                relative p-10 rounded-[2.5rem] border border-neutral-100 shadow-sm
-                flex flex-col items-center text-center space-y-6 transition-all duration-700
-                hover:shadow-2xl hover:shadow-emerald-500/10 hover:border-emerald-500/20 group z-10
+                relative py-12 px-8 min-h-[400px] border border-dashed border-neutral-200 shadow-sm
+                flex flex-col items-center justify-center text-center space-y-6 transition-all duration-700
+                hover:shadow-2xl hover:shadow-emerald-500/10 hover:border-emerald-500/30 group z-10
                 ${step.bg}
               `}
                         >
-                            <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 border border-neutral-100">
+                            <div className="w-16 h-16 bg-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 border border-dashed border-neutral-100">
                                 {step.icon}
                             </div>
 
@@ -102,7 +102,7 @@ export default function AppFlow() {
                             {/* Special Animation for Step 3 */}
                             {i === 2 ? (
                                 <div className="w-full pt-4">
-                                    <div className="bg-black rounded-2xl p-4 shadow-2xl border border-neutral-800 relative overflow-hidden group/link">
+                                    <div className="bg-black p-4 shadow-2xl border border-neutral-800 relative overflow-hidden group/link">
                                         <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-transparent opacity-0 group-hover/link:opacity-100 transition-opacity"></div>
                                         <div className="flex items-center justify-between gap-2 text-[10px] md:text-xs font-mono relative z-10">
                                             <div className="flex items-center gap-1">
@@ -127,7 +127,7 @@ export default function AppFlow() {
                             ) : i === 1 ? (
                                 /* Small UI hint for Step 2 */
                                 <div className="w-full pt-4">
-                                    <div className="w-full h-2 bg-neutral-100 rounded-full overflow-hidden">
+                                    <div className="w-full h-2 bg-neutral-100 overflow-hidden">
                                         <motion.div
                                             animate={{ width: ["10%", "90%", "40%", "80%"] }}
                                             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -135,16 +135,16 @@ export default function AppFlow() {
                                         />
                                     </div>
                                     <div className="flex justify-between mt-2">
-                                        <div className="w-12 h-1.5 bg-neutral-100 rounded-full"></div>
-                                        <div className="w-8 h-1.5 bg-neutral-100 rounded-full"></div>
+                                        <div className="w-12 h-1.5 bg-neutral-100"></div>
+                                        <div className="w-8 h-1.5 bg-neutral-100"></div>
                                     </div>
                                 </div>
                             ) : (
                                 /* Small UI hint for Step 1 */
                                 <div className="w-full pt-4 flex gap-2 justify-center">
-                                    <div className="w-8 h-10 bg-neutral-100 rounded border-l-2 border-emerald-500 rotate-[-12deg]"></div>
-                                    <div className="w-8 h-10 bg-neutral-100 rounded border-l-2 border-emerald-500 rotate-0"></div>
-                                    <div className="w-8 h-10 bg-neutral-100 rounded border-l-2 border-emerald-500 rotate-[12deg]"></div>
+                                    <div className="w-8 h-10 bg-neutral-100 border-l-2 border-emerald-500 rotate-[-12deg]"></div>
+                                    <div className="w-8 h-10 bg-neutral-100 border-l-2 border-emerald-500 rotate-0"></div>
+                                    <div className="w-8 h-10 bg-neutral-100 border-l-2 border-emerald-500 rotate-[12deg]"></div>
                                 </div>
                             )}
                         </motion.div>

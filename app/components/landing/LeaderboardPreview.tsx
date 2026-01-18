@@ -32,6 +32,7 @@ export default async function LeaderboardPreview() {
                         <Link
                             key={user.id}
                             href={`/${user.username}`}
+                            target="_blank"
                             className="flex items-center justify-between p-4 md:p-4 bg-white border border-neutral-300 rounded-3xl hover:border-emerald-500/30 hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-500 group relative overflow-hidden active:scale-[0.98]"
                         >
                             {/* Background Accent */}
